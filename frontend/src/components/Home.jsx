@@ -3,6 +3,7 @@ import { socket } from "../scoket";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GroupMsg } from "./GroupMsg";
+import { InboxMsg } from "./InboxMsg";
 export const Home = () => {
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || ''; 
@@ -254,8 +255,9 @@ export const Home = () => {
             {(selectedUser) &&   selectedUser?.username}
 
       { (selectedUser) &&( <div>  {allMsgs?.map((msg,index)=>(
-     <p key={index}>{(msg?.from==userInfo._id)?userInfo.username:selectedUser.username}:{msg.text}</p>
-   ))}
+    /*  <p key={index}>{(msg?.from==userInfo._id)?userInfo.username:selectedUser.username}:{msg.text}</p> */
+      <InboxMsg key={index} selectedUser={selectedUser} userInfo={userInfo} msg={msg}/>
+  ))}
       <div className='msg_input--container'>
         <input type="text" id='msg_input' placeholder="send a message" value={msg} onChange={e=>setMsg(e.target.value)} />
         <button onClick={sendMsg} >send</button>
